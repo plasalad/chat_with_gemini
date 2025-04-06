@@ -6,15 +6,15 @@ try:
   genai.configure(api_key=key)
   model = genai.GenerativeModel('gemini-2.0-flash-lite')
 
-if "chat" not in st.session_state:
-    st.session_state.chat = model.start_chat(history=[])
-st.title('Gemini Pro Test')
+  if "chat" not in st.session_state:
+      st.session_state.chat = model.start_chat(history=[])
+  st.title('Gemini Pro Test')
 
 def role_to_streamlit(role:str) -> str:
     if role == 'model':
         return 'assistant'
-else:
-  return role
+    else:
+        return role
 
 for message in st.session_state.chat.history:
   with st.chat_message(role_to_streamlit(message.role)):
