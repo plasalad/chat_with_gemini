@@ -11,7 +11,7 @@ if "chat" not in st.session_state:
 st.title('Gemini Pro Test')
 
 def role_to_streamlit(role:str) -> str:
-    if role == 'model:
+    if role == 'model':
         return 'assistant'
 else:
   return role
