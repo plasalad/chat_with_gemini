@@ -2,30 +2,38 @@ import streamlit as st
 import google.generativeai as genai
 
 try:
-  key = st.secrets['gemini_api_key']
-  genai.configure(api_key=key)
-  model = genai.GenerativeModel('gemini-2.0-flash-lite')
+    # Get Gemini API key from secrets
+    key = st.secrets['gemini_api_key']
+    genai.configure(api_key=key)
 
-  if "chat" not in st.session_state:
-      st.session_state.chat = model.start_chat(history=[])
-  st.title('Gemini Pro Test')
+    # Initialize model
+    model = genai.GenerativeModel('gemini-2.0-flash-lite')
 
-def role_to_streamlit(role:str) -> str:
-    if role == 'model':
-        return 'assistant'
-    else:
-        return role
+    # Start chat session if not already in session state
+    if "chat" not in st.session_state:
+        st.session_state.chat = model.start_chat(history=[])
 
-for message in st.session_state.chat.history:
-  with st.chat_message(role_to_streamlit(message.role)):
-      st.markdown(message.parts[0].text)
+    # Page title
+    st.title('Gemini Pro Test')
 
-  if prompt := st.chat_input("Text Here"):
-    st.chat_message('user').markdown(prompt)
-    response = st.session_state.chat.send_message(prompt)
-    with st.chat_message('assistant'):
-        st.markdown(response.text)
+    # Helper to map Gemini roles to Streamlit roles
+    def role_to_streamlit(role: str) -> str:
+        return 'assistant' if role == 'model' else role
+
+    # Display chat history
+    for message in st.session_state.chat.history:
+        with st.chat_message(role_to_streamlit(message.role)):
+            st.markdown(message.parts[0].text)
+
+    # Chat input
+    if prompt := st.chat_input("Text Here"):
+        # Show user's message
+        st.chat_message('user').markdown(prompt)
+
+        # Send to Gemini and show response
+        response = st.session_state.chat.send_message(prompt)
+        with st.chat_message('assistant'):
+            st.markdown(response.text)
 
 except Exception as e:
-    st.error(f'An error occurred {e}')
-  
+    st.error(f'An error occurred: {e}')
