@@ -2,10 +2,8 @@ import streamlit as st
 import google.generativeai as genai
 import pandas as pd
 
-st.set_page_config(page_title="Chat with Database using Gemini", layout="wide")
+st.set_page_config(page_title="Gemini is here for you", layout="wide")
 
-# Use ONE title
-st.title("Chat with Database using Gemini")
 
 # === Sidebar Upload Boxes ===
 with st.sidebar:
