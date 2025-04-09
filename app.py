@@ -4,8 +4,8 @@ import pandas as pd
 
 st.set_page_config(page_title="Chat with Database using Gemini", layout="wide")
 
-# === Page Title ===
-st.markdown("<h1 style='text-align: center;'>Chat with Database using Gemini</h1>", unsafe_allow_html=True)
+# Use ONE title
+st.title("Chat with Database using Gemini")
 
 # === Sidebar Upload Boxes ===
 with st.sidebar:
@@ -57,8 +57,6 @@ try:
     if "chat" not in st.session_state:
         st.session_state.chat = model.start_chat(history=[])
 
-    # Page title
-    st.title('Gemini Pro Test')
 
     # Helper to map Gemini roles to Streamlit roles
     def role_to_streamlit(role: str) -> str:
