@@ -2,8 +2,9 @@ import streamlit as st
 import google.generativeai as genai
 import pandas as pd
 
-st.set_page_config(page_title="Gemini is here for you", layout="wide")
+st.set_page_config(page_title="Chat Gemini, your personal data analyst", layout="wide")
 
+st.title("Chat Gemini, your personal data analyst")
 
 # === Sidebar Upload Boxes ===
 with st.sidebar:
